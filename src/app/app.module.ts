@@ -9,12 +9,14 @@ import { counterReducer } from './counter.reducer';
 import { numbersReducer } from './numbers.reducer';
 import { MyCounterComponent } from './my-counter/my-counter.component';
 import { MyNumbersComponent } from './my-numbers/my-numbers.component';
+import { MySafeDecoratorComponent } from './my-safe-decorator/my-safe-decorator.component';
 @NgModule({
   declarations: [
     AppComponent,
     ReversePipe,
     MyCounterComponent,
-    MyNumbersComponent
+    MyNumbersComponent,
+    MySafeDecoratorComponent
   ],
   imports: [
     BrowserModule,
