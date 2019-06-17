@@ -14,5 +14,10 @@
   <p>{{test}}</p> -->
 <!-- <app-my-counter></app-my-counter>
 <app-my-numbers></app-my-numbers> -->
-<app-my-safe-decorator></app-my-safe-decorator>
+<!-- <app-my-safe-decorator></app-my-safe-decorator> -->
+<div class="nav">
+  <button (click)="router.navigate(['/counter']);">Counter</button>
+  <button (click)="router.navigate(['/numbers']);">Numbers</button>
+  <button (click)="router.navigate(['/decorator']);">Decorators</button>
+</div>
 <router-outlet></router-outlet>
