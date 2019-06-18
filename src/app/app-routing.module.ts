@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MyCounterComponent } from './my-counter/my-counter.component';
 
 const routes: Routes = [
   {
@@ -12,12 +11,16 @@ const routes: Routes = [
     loadChildren: './my-numbers/my-numbers.module#MyNumbersModule'
   },
   {
-    path: 'decorator',
+    path: 'decorators',
     loadChildren: './my-safe-decorator/my-safe-decorator.module#MySafeDecoratorModule'
   },
   {
-    path: 'pipe',
+    path: 'pipes',
     loadChildren: './my-pipes/my-pipes.module#MyPipesModule'
+  },
+  {
+    path: 'directives',
+    loadChildren: './my-directives/my-directives.module#MyDirectivesModule'
   }
 ];
 
