@@ -22,14 +22,9 @@ export function safe(target: Object, propertyKey: string) {
 export function changeLog(target: Object, propertyKey: string) {
   const descriptor = Object.getOwnPropertyDescriptor(target, propertyKey);
   const originalMethod = descriptor.value;
-  const str = JSON.stringify(originalMethod);
   descriptor.value = function changeLogWrapper(...args) {
     originalMethod.apply(this, arguments);
     const message = `Function ${propertyKey} say ${args[0]}! Decorator replied ${args[0].split('').reverse().join('')}`;
-    console.log(message);
-    console.log('descriptor', descriptor);
-    console.log('target', target);
-    console.log('propertyKey', propertyKey);
     document.body.innerHTML += '<br><pre style=\'color: green\'>' + message + '</pre>';
   };
   Object.defineProperty(target, propertyKey, descriptor);

@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'decorator',
     loadChildren: './my-safe-decorator/my-safe-decorator.module#MySafeDecoratorModule'
+  },
+  {
+    path: 'pipe',
+    loadChildren: './my-pipes/my-pipes.module#MyPipesModule'
   }
 ];
 
