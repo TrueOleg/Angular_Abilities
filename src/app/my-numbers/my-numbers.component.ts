@@ -17,7 +17,7 @@ export class MyNumbersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new Add({ number: '0' }));
+    // this.store.dispatch(new Add({ number: '0' }));
     this.store.pipe(select('numbers')).subscribe((data) => {
       console.log('numbers', data);
       this.$numbers = data.numbers;

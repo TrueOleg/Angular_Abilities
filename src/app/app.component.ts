@@ -15,10 +15,7 @@ export class AppComponent {
     private router: Router
   ) { }
 
-  add(value) {
-    console.log('array', this.array);
-    this.array.push(value);
-    this.cd.detectChanges();
-    console.log('array', this.array);
+  nav(url) {
+    this.router.navigateByUrl(url);
   }
 }

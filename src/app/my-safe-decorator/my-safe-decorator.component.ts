@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { safe, changeLog } from './decorators';
+import { safe, changeLog } from '../helpers/decorators';
 
 
 @Component({
@@ -7,6 +7,7 @@ import { safe, changeLog } from './decorators';
   templateUrl: './my-safe-decorator.component.html',
   styleUrls: ['./my-safe-decorator.component.scss']
 })
+
 export class MySafeDecoratorComponent implements OnInit {
 
   constructor() { }
@@ -14,9 +15,10 @@ export class MySafeDecoratorComponent implements OnInit {
   ngOnInit() {
     // this.fooWithDecorator(null, { answer: 300 });
     // this.foo(null, { answer: 42 });
-    this.log();
-    this.logWithDec('123456');
+    // this.log();
+    // this.logWithDec('123456');
   }
+
   public foo(str: string, data: any): boolean {
     return str.length > 0;
   }

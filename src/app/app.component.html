@@ -16,8 +16,14 @@
 <app-my-numbers></app-my-numbers> -->
 <!-- <app-my-safe-decorator></app-my-safe-decorator> -->
 <div class="nav">
-  <button (click)="router.navigate(['/counter']);">Counter</button>
-  <button (click)="router.navigate(['/numbers']);">Numbers</button>
-  <button (click)="router.navigate(['/decorator']);">Decorators</button>
+  <button>
+    <a routerLink="counter">Counter</a>
+  </button>
+  <button>
+    <a routerLink="numbers">Numbers</a>
+  </button>
+  <button>
+    <a routerLink="decorator">Decorators</a>
+  </button>
 </div>
 <router-outlet></router-outlet>
