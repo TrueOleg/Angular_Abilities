@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'directives',
     loadChildren: './my-directives/my-directives.module#MyDirectivesModule'
+  },
+  {
+    path: 'lifecycles',
+    loadChildren: './life-cycles/life-cycles.module#LifeCyclesModule'
   }
 ];
 

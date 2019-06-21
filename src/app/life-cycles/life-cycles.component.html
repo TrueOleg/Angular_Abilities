@@ -1,0 +1,10 @@
+<p>
+  lifecycles works!
+</p>
+<app-life-cycles-child [name]="name"></app-life-cycles-child>
+<app-life-cycles-child-with-detect-changes [profile]="profile"></app-life-cycles-child-with-detect-changes>
+<h1>Parent inputs</h1>
+<p>Name</p>
+<input [(ngModel)]="name" type="text" />
+<p>Profile Name</p>
+<input [(ngModel)]="profile.name" type="text" />
