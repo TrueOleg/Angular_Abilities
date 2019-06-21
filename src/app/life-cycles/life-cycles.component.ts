@@ -7,7 +7,8 @@ import {
   AfterContentInit,
   AfterContentChecked,
   AfterViewChecked,
-  AfterViewInit
+  AfterViewInit,
+  OnDestroy
 } from '@angular/core';
 
 @Component({
@@ -21,7 +22,8 @@ export class LifeCyclesComponent implements OnInit,
   AfterContentInit,
   AfterContentChecked,
   AfterViewChecked,
-  AfterViewInit {
+  AfterViewInit,
+  OnDestroy {
 
   profile = {
     name: 'Oleg'
@@ -61,6 +63,9 @@ export class LifeCyclesComponent implements OnInit,
   ngAfterContentChecked() {
 
     this.log(`ngAfterContentChecked`);
+  }
+  ngOnDestroy() {
+    this.log('ngOnDestroy');
   }
 
   private log(msg: string) {
