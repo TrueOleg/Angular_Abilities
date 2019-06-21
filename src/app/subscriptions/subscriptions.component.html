@@ -1,0 +1,17 @@
+<p>
+  subscriptions works!
+</p>
+<div class="cont">
+  <div class="heroes">
+    <div *ngFor='let hero of data'>
+      <p>{{hero.name}}</p>
+    </div>
+  </div>
+  <div class="controls">
+    <input [(ngModel)]="name" placeholder="enter hero name" type="text">
+    <button (click)="addHero()" class="addBtn">Add Hero</button>
+    <button (click)="subToggle()" class="toggleBtn"
+      [ngStyle]="{'background-color':sub.closed ? 'green' : 'red' }">{{ sub.closed ? 'Turn on sub' : 'Turn off sub'}}</button>
+  </div>
+  <div></div>
+</div>

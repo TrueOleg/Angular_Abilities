@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'lifecycles',
     loadChildren: './life-cycles/life-cycles.module#LifeCyclesModule'
+  },
+  {
+    path: 'subscriptions',
+    loadChildren: './subscriptions/subscriptions.module#SubscriptionsModule'
   }
 ];
 
