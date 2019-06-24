@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'zones',
     loadChildren: './zones/zones.module#ZonesModule'
+  },
+  {
+    path: 'balls',
+    loadChildren: './balls/balls.module#BallsModule'
   }
 ];
 
