@@ -80,8 +80,15 @@ export class ZonesComponent implements OnInit {
     box.y = y;
   }
 
-  logNgZone() {
-    console.log('NgZone', this.ngZone);
+  makeAnExpensivePicture() {
+    let pos = 0;
+    this.boxes.forEach(box => {
+      if ((box.x >= 20 && box.x <= 100) && (box.y >= 20 && box.y <= 100)) {
+        box.x = pos;
+        box.y = pos;
+        pos++;
+      }
+    });
   }
 
   createParentZone() {
