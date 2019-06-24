@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'subscriptions',
     loadChildren: './subscriptions/subscriptions.module#SubscriptionsModule'
+  },
+  {
+    path: 'zones',
+    loadChildren: './zones/zones.module#ZonesModule'
   }
 ];
 
