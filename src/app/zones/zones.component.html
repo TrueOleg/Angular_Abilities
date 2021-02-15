@@ -1,9 +1,0 @@
-<p>
-  zones works!
-</p>
-<button (click)="createParentZone()">Create Zone</button>
-<button (click)="createChildZone()">Create Child Zone</button>
-<button (click)="makeAnExpensivePicture()" class="btn">Make An Expensive Picture</button>
-<svg width="550" height="550" (mousedown)="mouseDown($event)" (mouseup)="mouseUp($event)">
-  <svg:g box *ngFor="let box of boxes" [box]="box" [selected]="box.id == currentId"></svg:g>
-</svg>
