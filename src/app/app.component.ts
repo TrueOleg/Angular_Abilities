@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {distinct, finalize, map, mapTo, take, tap} from 'rxjs/operators';
+import {distinct, finalize, map, mapTo, pluck, take, tap} from 'rxjs/operators';
 import {defer, from, iif, interval, Observable, of} from 'rxjs';
 
 @Component({
@@ -146,12 +146,70 @@ export class AppComponent {
   }
 
   testDistincWithSelectorFunc(): void {
-    const items = [{ id: 1 }, { id: 2 }, { id: 2 }, { id: 3 }, { id: 8 }, { id: 8 }, { id: 'aaaaa' }, { id: 'aaaaa' }, { id: 'bbbb' }, {fakeId: 123}, {anotherFakeId: 123}];
+    const items = [
+      { id: 1 },
+      { id: 2 },
+      { id: 2 },
+      { id: 3 },
+      { id: 8 },
+      { id: 8 },
+      { id: 'aaaaa' },
+      { id: 'aaaaa' },
+      { id: 'bbbb' },
+      {fakeId: 123},
+      {anotherFakeId: 123}
+      ];
 
     const source2 = from(items).pipe(distinct(({ id }) => id));
 
     source2.subscribe({
       next: console.log
+    });
+  }
+
+  testDiffBetweenMapAndPluck() {
+    const objectList = [
+      {
+        employee: {
+          address: {
+            houseNumber: 1
+          }
+        }
+      },
+      {
+        employee: {
+          // address: {
+          //   notHouseNumber: 'something'
+          // }
+        }
+      },
+      {
+        employee: {
+          address: {
+            houseNumber: 3
+          }
+        }
+      }
+    ];
+
+
+    from(objectList).pipe(
+      map(object => object.employee),
+      map(employee => employee.address),
+      // @ts-ignore
+      map(address => address.houseNumber)
+    ).subscribe(value => {
+      console.log('value in map', value);
+    }, error => {
+      console.log('error in map', error);
+    });
+
+    from(objectList).pipe(
+      pluck('employee', 'address', 'houseNumber')
+    ).subscribe(value => {
+      console.log('value in pluck', value);
+    }, error => {
+      console.log('error in pluck', error);
     });
   }
 }
