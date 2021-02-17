@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 import DragedComponentInterface from '../interfaces/dragedComponent.interface';
 
 const components = (() => {
@@ -22,7 +22,8 @@ const components = (() => {
 export class IndexsService {
   public dragedComponents = new BehaviorSubject<DragedComponentInterface[]>(components());
 
-  constructor() { }
+  constructor() {
+  }
 
   elevateComponent(arrIndex: number, initialX: number, initialY: number): void {
     const oldValue = this.dragedComponents.getValue();
@@ -30,7 +31,7 @@ export class IndexsService {
     if (oldValue[arrIndex].zIndex !== oldValue.length) {
       newValue = oldValue.map((component: DragedComponentInterface) => {
         return {
-          zIndex: component.zIndex - 1,
+          zIndex: component.zIndex > oldValue[arrIndex].zIndex ? component.zIndex - 1 : component.zIndex,
           initialX: component.initialX,
           initialY: component.initialY,
         };

@@ -8,7 +8,7 @@ import {IndexsService} from '../services/indexs.service';
   selector: '[appFreeDragging]',
 })
 export class FreeDraggingDirective implements OnInit, OnDestroy {
-  @Input()arrIndex!: number;
+  @Input() arrIndex!: number;
   private element: HTMLElement | undefined;
   private initialX: number | undefined;
   private initialY: number | undefined;
@@ -23,6 +23,7 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const component = this.indexsService.getComp(this.arrIndex);
+    console.log('comp', component);
     // tslint:disable-next-line:no-non-null-assertion
     this.initialX = component.initialX;
     // tslint:disable-next-line:no-non-null-assertion
@@ -94,8 +95,7 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
 
     // 6
     // @ts-ignore
-    this.subscriptions.push.apply(this.subscriptions, [dragStartSub, dragEndSub, ]);
-    console.log('this.subscriptions', this.subscriptions)
+    this.subscriptions.push.apply(this.subscriptions, [dragStartSub, dragEndSub,]);
   }
 
   ngOnDestroy(): void {
