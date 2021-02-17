@@ -23,7 +23,6 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const component = this.indexsService.getComp(this.arrIndex);
-    console.log('comp', component);
     // tslint:disable-next-line:no-non-null-assertion
     this.initialX = component.initialX;
     // tslint:disable-next-line:no-non-null-assertion
@@ -31,6 +30,7 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
     this.element = this.elementRef.nativeElement as HTMLElement;
     // tslint:disable-next-line:no-non-null-assertion
     this.element!.style.zIndex = `${component.zIndex}`;
+    this.element!.style.background = component.color;
     if (this.initialX && this.initialY) {
       // tslint:disable-next-line:no-non-null-assertion
       this.element!.style.transform =

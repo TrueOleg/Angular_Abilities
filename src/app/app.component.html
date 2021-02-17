@@ -12,13 +12,16 @@
     <button (click)="testDiffBetweenMapAndPluck()">test different between map and pluck</button>
   </div>
   <!-- Define our template -->
-  <ng-template #myTemplate> World! </ng-template>
+  <ng-template #myTemplate> World!</ng-template>
 
   Hello
   <!-- Render the template in this outlet -->
   <ng-container [ngTemplateOutlet]="myTemplate"></ng-container>
+  <div class="drag-exp">
+    <app-test-component *ngFor="let component of testArr; let x = index" [component]="component"
+                        [arrIndex]=x></app-test-component>
+  </div>
 
-  <app-test-component *ngFor="let component of testArr; let x = index" [component]="component" [arrIndex]=x></app-test-component>
 </div>
 
 <router-outlet></router-outlet>

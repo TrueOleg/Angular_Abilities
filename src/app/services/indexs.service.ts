@@ -5,11 +5,13 @@ import DragedComponentInterface from '../interfaces/dragedComponent.interface';
 const components = (() => {
   const arr = [];
   let n = 0;
-  while (n < 10) {
+  while (n < 45) {
     arr.push({
       zIndex: n + 1,
       initialX: undefined,
-      initialY: undefined
+      initialY: undefined,
+      // tslint:disable-next-line:no-bitwise
+      color: '#' + ((1 << 24) * Math.random() | 0).toString(16)
     });
     n++;
   }
@@ -34,6 +36,7 @@ export class IndexsService {
           zIndex: component.zIndex > oldValue[arrIndex].zIndex ? component.zIndex - 1 : component.zIndex,
           initialX: component.initialX,
           initialY: component.initialY,
+          color: component.color,
         };
       });
       newValue[arrIndex].zIndex = newValue.length;
