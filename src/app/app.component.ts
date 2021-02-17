@@ -1,14 +1,28 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {distinct, finalize, map, mapTo, pluck, take, tap} from 'rxjs/operators';
 import {defer, from, iif, interval, Observable, of} from 'rxjs';
+import {IndexsService} from './services/indexs.service';
+import DragedComponentInterface from './interfaces/dragedComponent.interface';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Y';
+  testArr: DragedComponentInterface[] = [];
+
+  constructor(
+    private indexsService: IndexsService
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.indexsService.dragedComponents.subscribe((components: DragedComponentInterface[]) => {
+      this.testArr = components;
+    });
+  }
 
   testTap(): void {
     const source = interval(1000).pipe(
@@ -167,6 +181,7 @@ export class AppComponent {
     });
   }
 
+  // tslint:disable-next-line:typedef
   testDiffBetweenMapAndPluck() {
     const objectList = [
       {
@@ -178,9 +193,7 @@ export class AppComponent {
       },
       {
         employee: {
-          // address: {
-          //   notHouseNumber: 'something'
-          // }
+          // Damaged object
         }
       },
       {
