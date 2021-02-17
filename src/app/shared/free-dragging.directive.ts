@@ -9,8 +9,6 @@ import {IndexsService} from '../services/indexs.service';
 })
 export class FreeDraggingDirective implements OnInit, OnDestroy {
   @Input()arrIndex!: number;
-  @Input()componentInitX: number | undefined;
-  @Input()componentInitY: number | undefined;
   private element: HTMLElement | undefined;
   private initialX: number | undefined;
   private initialY: number | undefined;
@@ -21,10 +19,6 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
     private indexsService: IndexsService,
     @Inject(DOCUMENT) private document: any
   ) {
-    // tslint:disable-next-line:no-non-null-assertion
-    this.initialX = this.componentInitX!;
-    // tslint:disable-next-line:no-non-null-assertion
-    this.initialY = this.componentInitY!;
   }
 
   ngOnInit(): void {
@@ -33,10 +27,10 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
     this.initialX = component.initialX;
     // tslint:disable-next-line:no-non-null-assertion
     this.initialY = component.initialY;
-    console.log('=======', this.initialX, this.initialY);
     this.element = this.elementRef.nativeElement as HTMLElement;
+    // tslint:disable-next-line:no-non-null-assertion
+    this.element!.style.zIndex = `${component.zIndex}`;
     if (this.initialX && this.initialY) {
-      console.log('aaaaa')
       // tslint:disable-next-line:no-non-null-assertion
       this.element!.style.transform =
         'translate3d(' + this.initialX + 'px, ' + this.initialY + 'px, 0)';
@@ -56,8 +50,8 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
 
     // 2
 
-    let currentX = 0;
-    let currentY = 0;
+    let currentX = this.initialX ? this.initialX : 0;
+    let currentY = this.initialY ? this.initialY : 0;
 
     let dragSub: Subscription;
 
@@ -67,7 +61,8 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
       this.initialY = event.clientY - currentY;
       // tslint:disable-next-line:no-non-null-assertion
       this.element!.classList.add('free-dragging');
-
+      // tslint:disable-next-line:no-non-null-assertion
+      this.element!.style.zIndex = `9999999`;
       // 4
       // tslint:disable-next-line:no-shadowed-variable
       dragSub = drag$.subscribe((event: MouseEvent) => {
@@ -99,10 +94,11 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
 
     // 6
     // @ts-ignore
-    this.subscriptions.push.apply(this.subscriptions, [dragStartSub, dragSub, dragEndSub,]);
+    this.subscriptions.push.apply(this.subscriptions, [dragStartSub, dragEndSub, ]);
+    console.log('this.subscriptions', this.subscriptions)
   }
 
   ngOnDestroy(): void {
-    // this.subscriptions.forEach((s) => s.unsubscribe());
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }

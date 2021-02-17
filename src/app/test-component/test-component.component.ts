@@ -12,7 +12,6 @@ export class TestComponentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('>>>>', this.component);
   }
 
 }
