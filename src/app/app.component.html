@@ -18,7 +18,7 @@
   <!-- Render the template in this outlet -->
   <ng-container [ngTemplateOutlet]="myTemplate"></ng-container>
 
-  <app-test-component *ngFor="let i of testArr; let x = index" [arrIndex]=x></app-test-component>
+  <app-test-component *ngFor="let component of testArr; let x = index" [component]="component" [arrIndex]=x></app-test-component>
 </div>
 
 <router-outlet></router-outlet>

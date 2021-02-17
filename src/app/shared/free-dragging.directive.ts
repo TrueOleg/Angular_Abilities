@@ -8,19 +8,40 @@ import {IndexsService} from '../services/indexs.service';
   selector: '[appFreeDragging]',
 })
 export class FreeDraggingDirective implements OnInit, OnDestroy {
-  @Input()arrIndex: number | undefined;
+  @Input()arrIndex!: number;
+  @Input()componentInitX: number | undefined;
+  @Input()componentInitY: number | undefined;
   private element: HTMLElement | undefined;
-
+  private initialX: number | undefined;
+  private initialY: number | undefined;
   private subscriptions: Subscription[] = [];
 
   constructor(
     private elementRef: ElementRef,
     private indexsService: IndexsService,
     @Inject(DOCUMENT) private document: any
-  ) {}
+  ) {
+    // tslint:disable-next-line:no-non-null-assertion
+    this.initialX = this.componentInitX!;
+    // tslint:disable-next-line:no-non-null-assertion
+    this.initialY = this.componentInitY!;
+  }
 
   ngOnInit(): void {
+    const component = this.indexsService.getComp(this.arrIndex);
+    // tslint:disable-next-line:no-non-null-assertion
+    this.initialX = component.initialX;
+    // tslint:disable-next-line:no-non-null-assertion
+    this.initialY = component.initialY;
+    console.log('=======', this.initialX, this.initialY);
     this.element = this.elementRef.nativeElement as HTMLElement;
+    if (this.initialX && this.initialY) {
+      console.log('aaaaa')
+      // tslint:disable-next-line:no-non-null-assertion
+      this.element!.style.transform =
+        'translate3d(' + this.initialX + 'px, ' + this.initialY + 'px, 0)';
+    }
+
     this.initDrag();
   }
 
@@ -34,8 +55,7 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
     );
 
     // 2
-    let initialX: number;
-    let initialY: number;
+
     let currentX = 0;
     let currentY = 0;
 
@@ -43,8 +63,8 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
 
     // 3
     const dragStartSub = dragStart$.subscribe((event: MouseEvent) => {
-      initialX = event.clientX - currentX;
-      initialY = event.clientY - currentY;
+      this.initialX = event.clientX - currentX;
+      this.initialY = event.clientY - currentY;
       // tslint:disable-next-line:no-non-null-assertion
       this.element!.classList.add('free-dragging');
 
@@ -53,8 +73,10 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
       dragSub = drag$.subscribe((event: MouseEvent) => {
         event.preventDefault();
 
-        currentX = event.clientX - initialX;
-        currentY = event.clientY - initialY;
+        // tslint:disable-next-line:no-non-null-assertion
+        currentX = event.clientX - this.initialX!;
+        // tslint:disable-next-line:no-non-null-assertion
+        currentY = event.clientY - this.initialY!;
 
         // tslint:disable-next-line:no-non-null-assertion
         this.element!.style.transform =
@@ -64,14 +86,14 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
 
     // 5
     const dragEndSub = dragEnd$.subscribe(() => {
-      initialX = currentX;
-      initialY = currentY;
+      this.initialX = currentX;
+      this.initialY = currentY;
       // tslint:disable-next-line:no-non-null-assertion
       this.element!.classList.remove('free-dragging');
       if (dragSub) {
         dragSub.unsubscribe();
         // tslint:disable-next-line:no-non-null-assertion
-        // this.indexsService.elevateComponent(this.arrIndex!);
+        this.indexsService.elevateComponent(this.arrIndex!, this.initialX, this.initialY);
       }
     });
 
@@ -81,6 +103,6 @@ export class FreeDraggingDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
+    // this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }

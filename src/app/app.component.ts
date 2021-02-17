@@ -20,7 +20,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.indexsService.dragedComponents.subscribe((components: DragedComponentInterface[]) => {
-      this.testArr = components;
+      console.log('components', components)
+      this.testArr = [...components];
     });
   }
 

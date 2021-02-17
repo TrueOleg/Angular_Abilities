@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
-import DragedComponentInterface from "../interfaces/dragedComponent.interface";
+import DragedComponentInterface from '../interfaces/dragedComponent.interface';
 
 const components = (() => {
   const arr = [];
   let n = 0;
   while (n < 10) {
     arr.push({
-      zIndex: n + 1
+      zIndex: n + 1,
+      initialX: undefined,
+      initialY: undefined
     });
     n++;
   }
@@ -22,15 +24,27 @@ export class IndexsService {
 
   constructor() { }
 
-  elevateComponent(arrIndex: number): void {
+  elevateComponent(arrIndex: number, initialX: number, initialY: number): void {
     const oldValue = this.dragedComponents.getValue();
-    console.log('oldValue', oldValue);
-    const newValue = oldValue.map((component: DragedComponentInterface) => {
-      return {
-        zIndex: component.zIndex - 1
-      };
-    });
-    newValue[arrIndex].zIndex = newValue.length;
+    let newValue;
+    if (oldValue[arrIndex].zIndex !== oldValue.length) {
+      newValue = oldValue.map((component: DragedComponentInterface) => {
+        return {
+          zIndex: component.zIndex - 1,
+          initialX: component.initialX,
+          initialY: component.initialY,
+        };
+      });
+      newValue[arrIndex].zIndex = newValue.length;
+    } else {
+      newValue = [...oldValue];
+    }
+    newValue[arrIndex].initialX = initialX;
+    newValue[arrIndex].initialY = initialY;
     this.dragedComponents.next(newValue);
+  }
+
+  getComp(arrIndex: number): DragedComponentInterface {
+    return this.dragedComponents.getValue()[arrIndex];
   }
 }
